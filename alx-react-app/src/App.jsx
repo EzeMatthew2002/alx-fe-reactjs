@@ -1,9 +1,9 @@
 import { useState } from "react";
-import WelcomeMessage from "./WelcomeMessage";
-import Header from "./Header";    
-import Main from "./MainContent";
-import Footer from "./Footer";
-import UserProfile from "./UserProfile";
+import WelcomeMessage from "./components/WelcomeMessage";
+import Header from "./components/Header";    
+import Main from "./components/MainContent";
+import Footer from "./components/Footer";
+import UserProfile from "./components/UserProfile";
 import "./App.css";
 
 function App() {
