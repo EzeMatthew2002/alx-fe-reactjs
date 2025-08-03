@@ -1,28 +1,35 @@
 import React, { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { fetchGitHubData } from "../services/githubService";
 
 const Search = () => {
-  const [search, setSearch] = useState(""); // input text
-  const [repos, setRepos] = useState([]);   // array of repos
+  const [search, setSearch] = useState("");
+  const [user, setUser] = useState(null);
+  const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError(null);
+    setUser(null);
     setRepos([]);
 
     try {
-      const result = await fetchUserData(search);
-      setRepos(result);
+      const { user, repos } = await fetchGitHubData(search);
+      setUser(user);
+      setRepos(repos);
     } catch (err) {
-      setError(err.message);
+      setError("Looks like we can't find the user.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
       <h1>GitHub User Search</h1>
-      <p>Enter a GitHub username to search for repositories.</p>
+      <p>Enter a GitHub username to see their profile and repos.</p>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -34,10 +41,25 @@ const Search = () => {
         <button type="submit">Search</button>
       </form>
 
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {loading && <p>Loading...</p>}
 
-      <ul style={{ listStyleType: "none", padding: 0 }}>
-        {repos.length === 0 ? (
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {user && (
+        <div style={{ marginTop: "1rem" }}>
+          <img
+            src={user.avatar_url}
+            alt={user.login}
+            style={{ width: "100px", borderRadius: "50%" }}
+          />
+          <h2>{user.login}</h2>
+          <p>{user.bio}</p>
+          <p>Followers: {user.followers} | Following: {user.following}</p>
+        </div>
+      )}
+
+      <ul>
+        {repos.length === 0 && user && !loading ? (
           <li>No repositories found.</li>
         ) : (
           repos.map((repo) => <li key={repo.id}>{repo.name}</li>)
