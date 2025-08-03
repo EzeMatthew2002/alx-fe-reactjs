@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { advancedSearchUsers } from "../services/githubService";
 
 const Search = () => {
-  const [search, setSearch] = useState("");
-  const [user, setUser] = useState(null);
-  const [repos, setRepos] = useState([]);
+  const [username, setUsername] = useState("");
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -12,59 +13,63 @@ const Search = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setUser(null);
-    setRepos([]);
 
     try {
-      const { user, repos } = await fetchUserData(search);
-      setUser(user);
-      setRepos(repos);
+      const results = await advancedSearchUsers({ username, location, minRepos });
+      setUsers(results);
     } catch (err) {
-      setError("Looks like we can't find the user.");
+      setError("Search failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div>
-      <h1>GitHub User Search</h1>
-      <p>Enter a GitHub username to see their profile and repos.</p>
-
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-2 text-center">Advanced GitHub User Search</h1>
+      <form onSubmit={handleSubmit} className="space-y-3">
         <input
+          className="w-full p-2 border rounded"
           type="text"
-          placeholder="Enter GitHub username"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Username (optional)"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <button type="submit">Search</button>
+        <input
+          className="w-full p-2 border rounded"
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+        <input
+          className="w-full p-2 border rounded"
+          type="number"
+          placeholder="Minimum Repos"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+        />
+        <button className="bg-blue-600 text-white px-4 py-2 rounded" type="submit">
+          Search
+        </button>
       </form>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className="mt-4 text-center">Loading...</p>}
+      {error && <p className="mt-4 text-red-600">{error}</p>}
 
-      {error && <p style={{ color: "red" }}>{error} Looks like we cant find the user</p>}
-
-      {user && (
-        <div style={{ marginTop: "1rem" }}>
-          <img
-            src={user.avatar_url}
-            alt={user.login}
-            style={{ width: "100px", borderRadius: "50%" }}
-          />
-          <h2>{user.login}</h2>
-          <p>{user.bio}</p>
-          <p>Followers: {user.followers} | Following: {user.following}</p>
-        </div>
-      )}
-
-      <ul>
-        {repos.length === 0 && user && !loading ? (
-          <li>No repositories found.</li>
-        ) : (
-          repos.map((repo) => <li key={repo.id}>{repo.name}</li>)
-        )}
-      </ul>
+      <div className="mt-6 space-y-4">
+        {users.map((user) => (
+          <div key={user.id} className="p-4 border rounded flex items-center gap-4">
+            <img src={user.avatar_url} alt={user.login} className="w-12 h-12 rounded-full" />
+            <div>
+              <a href={user.html_url} className="font-bold text-blue-600" target="_blank" rel="noreferrer">
+                {user.login}
+              </a>
+              {user.location && <p className="text-sm text-gray-500">Location: {user.location}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
