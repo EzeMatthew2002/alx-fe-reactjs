@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { advancedSearchUsers } from "../services/githubService";
+import { fetchUserData } from "../services/githubService";
 
 const Search = () => {
   const [username, setUsername] = useState("");
@@ -15,7 +15,7 @@ const Search = () => {
     setError(null);
 
     try {
-      const results = await advancedSearchUsers({ username, location, minRepos });
+      const results = await fetchUserData({ username, location, minRepos });
       setUsers(results);
     } catch (err) {
       setError("Search failed. Please try again.");
