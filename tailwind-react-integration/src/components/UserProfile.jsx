@@ -1,11 +1,11 @@
 import React from "react";
 function UserProfile() {
   return (
-    <div className= "bg-gray-100 md:p-8 sm:p-4 max-w-sm mx-auto my-20 rounded-lg shadow-lg ">
+    <div className= "bg-gray-100 md:p-8 sm:p-4 max-w-xs, md:max-w-sm mx-auto my-20 rounded-lg shadow-lg ">
       <img
         src="https://via.placeholder.com/150 "
         alt="User"
-        className="rounded-full md:w-36 ,h-36 mx-auto sm: w-24 h-24 "
+        className="rounded-full sm:w-24 sm:h-24 md:h-36 mx-auto  "
       />
       <h1 className="md:text-xl  sm:text-lg text-blue-800 my-4">John Doe</h1>
       <p className="text-gray-600 md:text-base sm:text-sm">
