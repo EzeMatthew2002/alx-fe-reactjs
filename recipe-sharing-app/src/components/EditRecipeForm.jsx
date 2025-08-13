@@ -7,7 +7,7 @@ const EditRecipeForm = ({ recipe }) => {
   const [description, setDescription] = useState(recipe.description);
 
   const handleUpdate = (event) => {
-    event.preventDefault(); // ✅ Required to prevent page reload
+    event.preventDefault(); // 
 
     updateRecipe({
       id: recipe.id,
