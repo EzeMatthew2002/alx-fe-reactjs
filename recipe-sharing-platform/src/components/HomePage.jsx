@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
- import recipesFromSrc from "../data.json"; // Assuming this is the path to your local JSON file
+import { Link } from "react-router-dom"; 
+import recipesFromSrc from "../data.json"; 
+
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-  if (recipesFromSrc && recipesFromSrc.length > 0) {
-    setRecipes(recipesFromSrc);
-  } else {
-    fetch("/data.json")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched recipes:", data);
-        setRecipes(data);
-      })
-      .catch((err) => console.error("Error loading recipes:", err));
-  }
-}, []);
-
+    if (recipesFromSrc && recipesFromSrc.length > 0) {
+      setRecipes(recipesFromSrc);
+    } else {
+      fetch("/data.json")
+        .then((res) => res.json())
+        .then((data) => setRecipes(data))
+        .catch((err) => console.error("Error loading recipes:", err));
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
@@ -40,6 +38,16 @@ const HomePage = () => {
                 {recipe.title}
               </h2>
               <p className="text-gray-600 text-sm">{recipe.summary}</p>
+            </div>
+
+            {/* Link to the detail page */}
+            <div className="p-4">
+              <Link
+                to={`/recipe/${recipe.id}`}
+                className="block w-full text-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
+              >
+                View Recipe
+              </Link>
             </div>
           </div>
         ))}

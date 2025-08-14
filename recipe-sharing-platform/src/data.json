@@ -1,32 +1,72 @@
-  [
+[
   {
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
-    "image": "https://images.unsplash.com/photo-1603133872878-684f0b6de3c0"
+    "image": "https://plus.unsplash.com/premium_photo-1664391765043-57f702c4d41d?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "ingredients": [
+      "200g spaghetti",
+      "100g pancetta",
+      "2 large eggs",
+      "50g parmesan cheese",
+      "Salt and black pepper"
+    ],
+    "instructions":[ "Cook spaghetti until al dente. Fry pancetta until crispy. Beat eggs with parmesan. Drain pasta, then mix quickly with pancetta and egg mixture. Serve with black pepper."]
   },
   {
     "id": 2,
     "title": "Chicken Curry",
     "summary": "A flavorful dish made with tender chicken pieces simmered in a spicy curry sauce.",
-    "image": "https://images.unsplash.com/photo-1604909052836-52c1cddbf9b5"
+    "image": "https://images.unsplash.com/photo-1631292784640-2b24be784d5d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Q2hpY2tlbiUyMEN1cnJ5fGVufDB8fDB8fHww",
+    "ingredients": [
+      "500g chicken breast",
+      "2 onions",
+      "3 tomatoes",
+      "2 tbsp curry powder",
+      "200ml coconut milk"
+    ],
+    "instructions": ["Sauté onions until golden. Add curry powder and stir. Add chicken and brown. Add tomatoes and coconut milk, simmer until chicken is cooked through."]
   },
   {
     "id": 3,
     "title": "Vegetable Stir-Fry",
     "summary": "A quick and healthy meal with assorted vegetables stir-fried in a savory sauce.",
-    "image": "https://images.unsplash.com/photo-1569058242251-54f00d896f47"
+    "image": "https://plus.unsplash.com/premium_photo-1664475934279-2631a25c42ce?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8VmVnZXRhYmxlJTIwU3RpciUyMEZyeXxlbnwwfHwwfHx8MA%3D%3D",
+    "ingredients": [
+      "1 cup broccoli florets",
+      "1 cup sliced carrots",
+      "1 bell pepper",
+      "2 tbsp soy sauce",
+      "1 tbsp sesame oil"
+    ],
+    "instructions": ["Heat sesame oil in a wok. Add vegetables and stir-fry for 5 minutes. Add soy sauce and toss until vegetables are tender-crisp."]
   },
   {
     "id": 4,
     "title": "Beef Tacos",
     "summary": "Mexican-style tacos with seasoned beef, lettuce, cheese, and salsa in soft tortillas.",
-    "image": "https://images.unsplash.com/photo-1601924638867-3ec3b01b5aa4"
+    "image": "https://plus.unsplash.com/premium_photo-1661780139424-d582ec7aa9e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8QmVlZiUyMFRhY29zfGVufDB8fDB8fHww",
+    "ingredients": [
+      "300g ground beef",
+      "8 small tortillas",
+      "1 cup shredded lettuce",
+      "1/2 cup shredded cheese",
+      "Salsa"
+    ],
+    "instructions": ["Cook beef with taco seasoning until browned. Warm tortillas. Fill with beef, lettuce, cheese, and salsa."]
   },
   {
     "id": 5,
     "title": "Chocolate Cake",
     "summary": "Rich and moist chocolate cake topped with creamy chocolate frosting.",
-    "image": "https://images.unsplash.com/photo-1607290817805-9e64a9e6f8c7"
+    "image": "https://images.unsplash.com/photo-1586985289906-406988974504?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Q2hvY29sYXRlJTIwQ2FrZXxlbnwwfHwwfHx8MA%3D%3D",
+    "ingredients": [
+      "200g flour",
+      "200g sugar",
+      "100g cocoa powder",
+      "2 eggs",
+      "200g butter"
+    ],
+    "instructions": ["Mix dry ingredients. Add eggs and melted butter. Bake at 180°C for 35 minutes. Cool and frost with chocolate icing."]
   }
 ]
