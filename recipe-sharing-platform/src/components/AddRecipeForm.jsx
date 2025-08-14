@@ -10,6 +10,30 @@ const AddRecipeForm = () => {
     instructions: [],
     steps: []
   });
+   const [errors, setErrors] = useState({})
+
+   const validate = () => {
+    let newErrors = {};
+
+    if (!addRecipe.title.trim()) {
+      newErrors.title = "Title is required";
+    }
+    if (!addRecipe.summary.trim()) {
+      newErrors.summary = "Summary is required";
+    }
+    if (!addRecipe.image.trim()) {
+      newErrors.image = "Image URL is required";
+    }
+    if (addRecipe.ingredients.length === 0 || !addRecipe.ingredients[0].trim()) {
+      newErrors.ingredients = "At least one ingredient is required";
+    }
+    if (addRecipe.steps.length === 0 || !addRecipe.steps[0].trim()) {
+      newErrors.steps = "At least one step is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // true if no errors
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
