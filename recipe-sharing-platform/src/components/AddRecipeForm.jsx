@@ -8,6 +8,7 @@ const AddRecipeForm = () => {
     image: "",
     ingredients: [],
     instructions: [],
+    steps: []
   });
 
   const handleSubmit = (e) => {
@@ -30,6 +31,7 @@ const AddRecipeForm = () => {
       image: "",
       ingredients: [],
       instructions: [],
+      steps: []
     });
   };
 
