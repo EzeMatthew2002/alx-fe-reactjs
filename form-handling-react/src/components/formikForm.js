@@ -1,12 +1,11 @@
-
+// src/components/formikForm.js
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-
+// ✅ Validation schema with explicit Yup.string().required
 const validationSchema = Yup.object({
   userName: Yup.string()
-    .trim()
     .required("Please enter a name"),
   email: Yup.string()
     .email("Please enter a correct email")
@@ -31,7 +30,7 @@ const FormikForm = () => {
       >
         {() => (
           <Form>
-            {/* UserName */}
+            {/* Username */}
             <div>
               <label htmlFor="userName">UserName</label>
               <Field type="text" name="userName" />
