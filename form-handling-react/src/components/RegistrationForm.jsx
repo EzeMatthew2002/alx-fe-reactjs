@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [passWord, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let newErrors = {};
 
-    if (!userName) {
+    if (!username) {
       newErrors.userName = "Please enter a name";
     }
     if (!email) {
@@ -18,14 +18,14 @@ const RegistrationForm = () => {
     } else if (!email.includes("@")) {
       newErrors.email = "Please enter a valid email";
     }
-    if (!passWord) {
+    if (!password) {
       newErrors.passWord = "Please enter a password";
     }
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log("Form submitted:", { userName, email, passWord });
+      console.log("Form submitted:", { username, email, password });
     }
   };
 
@@ -38,7 +38,7 @@ const RegistrationForm = () => {
           <input
             type="text"
             name="username"
-            value={userName}
+            value={username}
             onChange={(e) => setUserName(e.target.value)}
           />
           {errors.userName && <p style={{ color: "red" }}>{errors.userName}</p>}
@@ -62,7 +62,7 @@ const RegistrationForm = () => {
           <input
             type="password"
             name="password"
-            value={passWord}
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           {errors.passWord && <p style={{ color: "red" }}>{errors.passWord}</p>}
