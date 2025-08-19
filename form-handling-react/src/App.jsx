@@ -1,6 +1,6 @@
 import React from "react";
 import RegistrationForm from "./components/RegistrationForm";
-import FormikForm from "./formikForm.js";
+import FormikForm from "./components/formikForm.js";
 
 import "./App.css";
 
