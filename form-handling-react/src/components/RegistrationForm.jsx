@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [passWord, setPassword] = useState("");
+  const [password, setPassword] = useState("");
 
   const [userNameError, setUserNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -50,7 +50,7 @@ const RegistrationForm = () => {
           <input
             type="text"
             name="username"
-            value={userName}
+            value={username}
             onChange={handleUserName}
           />
           {userNameError && <p style={{ color: "red" }}>{userNameError}</p>}
@@ -72,7 +72,7 @@ const RegistrationForm = () => {
           <input
             type="password"
             name="password"
-            value={passWord}
+            value={password}
             onChange={handlePassword}
           />
           {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
