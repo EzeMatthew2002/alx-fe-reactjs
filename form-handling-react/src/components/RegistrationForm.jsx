@@ -4,11 +4,14 @@ const RegistrationForm = () => {
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error , setError] = useState('')
 
   const [userNameError, setUserNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  if(!username || !password || !email){
+    setError('Please enter your details')
+  }
   function handleUserName(e) {
     const value = e.target.value.trimStart();
     setUserName(value);
