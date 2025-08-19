@@ -1,85 +1,74 @@
 import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  const [username, setUserName] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error , setError] = useState('')
+  const [passWord, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
-  const [userNameError, setUserNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  if(!username || !password || !email){
-    setError('Please enter your details')
-  }
-  function handleUserName(e) {
-    const value = e.target.value.trimStart();
-    setUserName(value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let newErrors = {};
 
-    if (value === "") {
-      setUserNameError("Please enter a name");
-    } else {
-      setUserNameError("");
+    if (!userName) {
+      newErrors.userName = "Please enter a name";
     }
-  }
-
-  function handleEmail(e) {
-    const value = e.target.value.trim();
-    setEmail(value);
-
-    if (!value.includes("@")) {
-      setEmailError("Please enter a correct email");
-    } else {
-      setEmailError("");
+    if (!email) {
+      newErrors.email = "Please enter an email";
+    } else if (!email.includes("@")) {
+      newErrors.email = "Please enter a valid email";
     }
-  }
-
-  function handlePassword(e) {
-    const value = e.target.value.trim();
-    setPassword(value);
-
-    if (value === "") {
-      setPasswordError("Please enter a password");
-    } else {
-      setPasswordError("");
+    if (!passWord) {
+      newErrors.passWord = "Please enter a password";
     }
-  }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      console.log("Form submitted:", { userName, email, passWord });
+    }
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
+        {/* Username */}
         <div>
           <label htmlFor="username">UserName</label>
           <input
             type="text"
             name="username"
-            value={username}
-            onChange={handleUserName}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
-          {userNameError && <p style={{ color: "red" }}>{userNameError}</p>}
+          {errors.userName && <p style={{ color: "red" }}>{errors.userName}</p>}
         </div>
 
+        {/* Email */}
         <div>
           <label htmlFor="email">Enter your email</label>
           <input
             type="email"
             name="email"
             value={email}
-            onChange={handleEmail}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          {emailError && <p style={{ color: "red" }}>{emailError}</p>}
+          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
         </div>
 
+        {/* Password */}
         <div>
           <label htmlFor="password">Enter your password</label>
           <input
             type="password"
             name="password"
-            value={password}
-            onChange={handlePassword}
+            value={passWord}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
+          {errors.passWord && <p style={{ color: "red" }}>{errors.passWord}</p>}
         </div>
+
+        <button type="submit">Register</button>
       </form>
     </div>
   );
