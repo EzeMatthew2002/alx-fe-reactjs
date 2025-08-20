@@ -22,7 +22,10 @@ function PostsComponent() {
   } = useQuery({
     queryKey: ["posts", page],
     queryFn: () => fetchPosts(page),
-    keepPreviousData: true, // ✅ preserves previous page while fetching next
+    keepPreviousData: true,          
+    cacheTime: 1000 * 60 * 5,        
+    staleTime: 1000 * 30,           
+    refetchOnWindowFocus: false,     
   });
 
   if (isLoading) return <p>Loading posts...</p>;
