@@ -1,49 +1,59 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+// src/components/PostsComponent.jsx
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-
-
-async function fetchPosts() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  if (!res.ok) throw new Error('Network response was not ok');
-  return res.json();
-}
-
- function PostsComponent() {
-  const { data, error, isLoading, isError, refetch, isFetching } = useQuery(
-    ['posts'],
-    fetchPosts,
-    {
-   
-      staleTime: 1000 * 60 * 5,
-      cacheTime: 1000 * 60 * 15, 
-      refetchOnWindowFocus: false, 
-    }
+const fetchPosts = async (page) => {
+  const { data } = await axios.get(
+    `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`
   );
+  return data;
+};
 
-  if (isLoading) return <p>Loading posts…</p>;
-  if (isError) return <p style={{color:'red'}}>Error: {error.message}</p>;
+function PostsComponent() {
+  const [page, setPage] = useState(1);
+
+  const {
+    data: posts,
+    isLoading,
+    isError,
+    error,
+    isFetching,
+  } = useQuery({
+    queryKey: ["posts", page],
+    queryFn: () => fetchPosts(page),
+    keepPreviousData: true, // ✅ preserves previous page while fetching next
+  });
+
+  if (isLoading) return <p>Loading posts...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <div>
-      <div style={{ marginBottom: 12 }}>
-        <button onClick={() => refetch()}>Refetch Posts</button>
-        {isFetching && <span style={{marginLeft:10}}>Updating…</span>}
-      </div>
-
-      <ul>
-        {data.slice(0, 20).map(post => ( 
-          <li key={post.id}>
+      <h2 className="text-xl font-bold mb-4">Posts (Page {page})</h2>
+      <ul className="list-disc ml-6">
+        {posts.map((post) => (
+          <li key={post.id} className="mb-2">
             <strong>{post.title}</strong>
             <p>{post.body}</p>
           </li>
         ))}
       </ul>
 
-      <p style={{ marginTop: 20, color: '#666' }}>
-        Tip: navigate away and back to see cached data load instantly (staleTime controls freshness).
-      </p>
+      <div className="flex gap-2 mt-4">
+        <button
+          onClick={() => setPage((old) => Math.max(old - 1, 1))}
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+        <span>Page {page}</span>
+        <button onClick={() => setPage((old) => old + 1)}>Next</button>
+      </div>
+
+      {isFetching && <p className="text-sm text-gray-500">Updating...</p>}
     </div>
   );
 }
-export default PostsComponent
+
+export default PostsComponent;
