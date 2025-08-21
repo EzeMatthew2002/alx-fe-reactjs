@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link, Navigate, Outlet, useParams } from 'react-router-dom';
-import Profile from './routes/Profile';
-import Home from './routes/Home';
-import PostPage from './routes/PostPage';
-import Login from './routes/Login';
+import Profile from './components/Profile';
+import Home from './components/Home';
+import PostPage from './components/PostPage';
+import Login from './components/Login';
 
 // simple auth context
 const AuthContext = createContext();
