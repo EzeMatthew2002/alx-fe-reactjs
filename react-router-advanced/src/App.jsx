@@ -1,49 +1,39 @@
-import React, { createContext, useContext, useState } from 'react';
-import { BrowserRouter, Routes, Route, Link, Navigate, Outlet, useParams } from 'react-router-dom';
-import Profile from './components/Profile';
-import Home from './components/Home';
-import PostPage from './components/PostPage';
-import Login from './components/Login';
+// src/App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfileSettings from "./components/ProfileSettings";
+import ProtectedRoute from "./components/ProtectedRoute";
+import BlogPost from "./components/BlogPost";
 
-// simple auth context
-const AuthContext = createContext();
-export const useAuth = () => useContext(AuthContext);
-
-function ProtectedRoute({ children }) {
-  const { user } = useAuth();
-  // redirect to /login if not authenticated
-  if (!user) return <Navigate to="/login" replace />;
-  return children;
-}
-
-export default function App(){
-  const [user, setUser] = useState(null);
+function App() {
+  const isAuthenticated = true; // fake auth, replace with real logic later
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <BrowserRouter>
-        <nav style={{ padding: 10, borderBottom: '1px solid #ddd' }}>
-          <Link to="/" style={{ marginRight: 10 }}>Home</Link>
-          <Link to="/profile" style={{ marginRight: 10 }}>Profile</Link>
-          <Link to="/posts/1" style={{ marginRight: 10 }}>Post/1</Link>
-          {!user ? <Link to="/login">Login</Link> : <span>Welcome, {user}</span>}
-        </nav>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+        {/* Protected Profile Route with Nested Routes */}
+        <Route
+          path="/profile/*"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="details" element={<ProfileDetails />} />
+          <Route path="settings" element={<ProfileSettings />} />
+        </Route>
 
-          {/* Protected route example */}
-          <Route path="/profile" element={
-            <ProtectedRoute><Profile /></ProtectedRoute>
-          } />
-
-          {/* Dynamic routing example */}
-          <Route path="/posts/:postId" element={<PostPage />} />
-
-          <Route path="*" element={<p>404 Not Found</p>} />
-        </Routes>
-      </BrowserRouter>
-    </AuthContext.Provider>
+        {/* Dynamic Blog Post Route */}
+        <Route path="/blog/:id" element={<BlogPost />} />
+      </Routes>
+    </Router>
   );
 }
+
+export default App;
