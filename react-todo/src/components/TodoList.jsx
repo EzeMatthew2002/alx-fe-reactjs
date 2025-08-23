@@ -34,7 +34,7 @@ function TodoList() {
     <div>
       <h1>Todo List</h1>
 
-      {/* ✅ New Input Form */}
+      {/* ✅ Input for adding todos */}
       <input
         type="text"
         placeholder="Add a new todo"

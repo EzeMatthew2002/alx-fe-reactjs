@@ -1,11 +1,10 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { describe, it, expect } from "vitest";
-import TodoList from "../components/TodoList";
+import TodoList from "../TodoList";
 
 describe("TodoList Component", () => {
   it("renders initial todos", () => {
-    render(<TodoList/>);
+    render(<TodoList />);
     expect(screen.getByText("Learn React")).toBeInTheDocument();
     expect(screen.getByText("Build a Todo App")).toBeInTheDocument();
   });
@@ -24,6 +23,8 @@ describe("TodoList Component", () => {
     const todo = screen.getByText("Learn React");
     fireEvent.click(todo);
     expect(todo).toHaveStyle("text-decoration: line-through");
+    fireEvent.click(todo);
+    expect(todo).toHaveStyle("text-decoration: none");
   });
 
   it("deletes a todo", () => {
